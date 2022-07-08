@@ -30,4 +30,3 @@ class Domain extends \WHMCS\Domain\Domain
 		$this->client->log("[Domain ID: {$this->id}]: {$message}");
 	}
 }
-

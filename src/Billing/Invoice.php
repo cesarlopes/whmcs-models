@@ -16,4 +16,3 @@ class Invoice extends \WHMCS\Billing\Invoice
 		$this->client->log("[Invoice ID: {$this->id}]: {$message}");
 	}
 }
-

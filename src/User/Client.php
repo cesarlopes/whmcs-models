@@ -9,10 +9,6 @@ use CesarLopes\WHMCS\Models\User\Client\Contact;
 
 class Client extends \WHMCS\User\Client
 {
-	
-
-	protected $customFieldStore;
-
 	public function affiliate()
 	{
 		return $this->hasOne(Affiliate::class, 'clientid');
@@ -31,6 +27,5 @@ class Client extends \WHMCS\User\Client
 	public function domains()
 	{
 		return $this->hasMany(Domain::class, 'userid');
-	}	
+	}
 }
-

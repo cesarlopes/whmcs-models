@@ -11,4 +11,3 @@ class Affiliate extends \WHMCS\User\Client\Affiliate
 		return $this->belongsTo(Client::class, 'clientid');
 	}
 }
-

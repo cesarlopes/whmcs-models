@@ -7,8 +7,6 @@ use CesarLopes\WHMCS\Models\User\Client;
 
 class Contact extends \WHMCS\User\Client\Contact
 {
-	use CanBeLabelled;
-
 	public function client()
 	{
 		return $this->belongsTo(Client::class, 'userid');
@@ -19,6 +17,3 @@ class Contact extends \WHMCS\User\Client\Contact
 		$this->client->log("[Contact ID: {$this->id}]: {$message}");
 	}
 }
-
-
-
