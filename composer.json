@@ -1,0 +1,31 @@
+{
+    "name": "cesarlopes/whmcs-models",
+    "type": "library",
+    "description": "Extended functionality for WHMCS Models.",
+    "keywords": [
+        "WHMCS",
+        "Models"
+    ],
+    "homepage": "https://github.com/cesarlopes/whmcs-models",
+    "license": [
+        "LGPL-3.0-or-later",
+        "GPL-3.0-or-later",
+        "MIT"
+    ],
+    "authors": [
+        {
+            "name": "Cesar Lopes",
+            "email": "contato@cesarlopes.com",
+            "homepage": "https://www.cesarlopes.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">= 7.4"      
+    },
+    "autoload": {
+        "psr-4": {
+            "CesarLopes\\WHMCS\\Models\\":"src/"
+        }
+    }
+}
