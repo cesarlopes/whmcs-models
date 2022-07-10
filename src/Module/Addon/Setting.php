@@ -1,6 +1,6 @@
 <?php
 
-namespace CesarLopes\WHMCS\Models\Module;
+namespace CesarLopes\WHMCS\Models\Module\Addon;
 
 class Setting extends \WHMCS\Module\Addon\Setting
 {

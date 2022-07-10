@@ -8,6 +8,10 @@ Via Composer
 *Biblioteca em desenvolvimento*
 
 ```sheel
+composer require cesarlopes/whmcs-models:dev-main
+```
+
+```sheel
 composer require cesarlopes/whmcs-models
 ```
 
