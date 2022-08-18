@@ -55,25 +55,25 @@ class Client extends \WHMCS\User\Client
             if (mb_strrpos(mb_strtoupper($field->fieldname), 'CPF') !== false) {
                 $cpf = $this->sanitizeField($field->value);
                 if (strlen($cpf) == 11) {
-                    $this->cpf = $cpf;
-                    $this->document = $cpf;
-                    $this->doc_name = $this->firstname . ' ' . $this->lastname;
+                    $this->customfields->cpf = $cpf;
+                    $this->customfields->document = $cpf;
+                    $this->customfields->doc_name = $this->firstname . ' ' . $this->lastname;
                 }
             }
             if (mb_strrpos(mb_strtoupper($field->fieldname), 'CNPJ') !== false) {
                 $cnpj = $this->sanitizeField($field->value);
                 if (strlen($cnpj) == 14) {
-                    $this->cnpj = $cnpj;
-                    $this->document = $cnpj;
-                    $this->doc_name = $this->companyname;
+                    $this->customfields->cnpj = $cnpj;
+                    $this->customfields->document = $cnpj;
+                    $this->customfields->doc_name = $this->companyname;
                 }
             }
             if (mb_strrpos(mb_strtoupper($field->fieldname), 'IM') !== false OR mb_strrpos(mb_strtoupper($field->fieldname), 'INSCRIÇÃO MUNICIPAL') !== false) {
                 if (strlen($field->value) > 0) {
-                    $this->im = $field->value;
+                    $this->customfields->im = $field->value;
                 }
             }
-            $this->{$this->under_score($field->fieldname)} = $field->value;
+            $this->customfields->{$this->under_score($field->fieldname)} = $field->value;
         }
 
 		return $this;
@@ -118,7 +118,7 @@ class Client extends \WHMCS\User\Client
         return false;
     }
 
-    public function setAddress()
+    public function buildAddress()
     {
         $this->address->street   = str_replace(',', '', preg_replace('/[0-9]+/i', '', $this->address1));
 		$this->address->number   = preg_replace('/[^0-9]/', '', $this->address1);
