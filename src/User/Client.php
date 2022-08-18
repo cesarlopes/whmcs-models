@@ -57,17 +57,17 @@ class Client extends \WHMCS\User\Client
             if (mb_strrpos(mb_strtoupper($field->fieldname), 'CPF') !== false) {
                 $cpf = $this->sanitizeField($field->value);
                 if (strlen($cpf) == 11) {
-                    $customFields->cpf = $cpf;
+                    $customFields->doc_type = 'CPF';
                     $customFields->document = $cpf;
-                    $customFields->doc_name = $this->firstname . ' ' . $this->lastname;
+                    $customFields->name = $this->firstname . ' ' . $this->lastname;
                 }
             }
             if (mb_strrpos(mb_strtoupper($field->fieldname), 'CNPJ') !== false) {
                 $cnpj = $this->sanitizeField($field->value);
                 if (strlen($cnpj) == 14) {
-                    $customFields->cnpj = $cnpj;
+                    $customFields->doc_type = 'CNPJ';
                     $customFields->document = $cnpj;
-                    $customFields->doc_name = $this->companyname;
+                    $customFields->name = $this->companyname;
                 }
             }
             if (mb_strrpos(mb_strtoupper($field->fieldname), 'IM') !== false OR mb_strrpos(mb_strtoupper($field->fieldname), 'INSCRIÇÃO MUNICIPAL') !== false) {
