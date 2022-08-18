@@ -34,8 +34,8 @@ class Client extends \WHMCS\User\Client
 
 	/* public function customFieldStore()
 	{
-		if (!$this->customFieldStore) $this->customFieldStore = new CustomFieldStore($this);
-		return $this->customFieldStore;
+		if (!$customFieldsStore) $customFieldsStore = new CustomFieldStore($this);
+		return $customFieldsStore;
 	} */
 
 	public function findByID($userid)
@@ -45,36 +45,40 @@ class Client extends \WHMCS\User\Client
 
 	public function loadCustomFields(){		
 
-        $customFields = Capsule::table('tblcustomfieldsvalues')
+        $dbFields = Capsule::table('tblcustomfieldsvalues')
             ->join('tblcustomfields', 'tblcustomfields.id', '=', 'tblcustomfieldsvalues.fieldid')
             ->where('tblcustomfields.type', 'client')
             ->where('tblcustomfieldsvalues.relid', $this->id)
             ->get();
 
-        foreach ($customFields as $field) {
+		$customFields = new \stdClass();
+
+        foreach ($dbFields as $field) {
             if (mb_strrpos(mb_strtoupper($field->fieldname), 'CPF') !== false) {
                 $cpf = $this->sanitizeField($field->value);
                 if (strlen($cpf) == 11) {
-                    $this->customfields->cpf = $cpf;
-                    $this->customfields->document = $cpf;
-                    $this->customfields->doc_name = $this->firstname . ' ' . $this->lastname;
+                    $customFields->cpf = $cpf;
+                    $customFields->document = $cpf;
+                    $customFields->doc_name = $this->firstname . ' ' . $this->lastname;
                 }
             }
             if (mb_strrpos(mb_strtoupper($field->fieldname), 'CNPJ') !== false) {
                 $cnpj = $this->sanitizeField($field->value);
                 if (strlen($cnpj) == 14) {
-                    $this->customfields->cnpj = $cnpj;
-                    $this->customfields->document = $cnpj;
-                    $this->customfields->doc_name = $this->companyname;
+                    $customFields->cnpj = $cnpj;
+                    $customFields->document = $cnpj;
+                    $customFields->doc_name = $this->companyname;
                 }
             }
             if (mb_strrpos(mb_strtoupper($field->fieldname), 'IM') !== false OR mb_strrpos(mb_strtoupper($field->fieldname), 'INSCRIÇÃO MUNICIPAL') !== false) {
                 if (strlen($field->value) > 0) {
-                    $this->customfields->im = $field->value;
+                    $customFields->im = $field->value;
                 }
             }
-            $this->customfields->{$this->under_score($field->fieldname)} = $field->value;
+            $customFields->{$this->under_score($field->fieldname)} = $field->value;
         }
+
+		$this->custom_fields = $customFields;
 
 		return $this;
 		
@@ -120,12 +124,17 @@ class Client extends \WHMCS\User\Client
 
     public function buildAddress()
     {
-        $this->address->street   = str_replace(',', '', preg_replace('/[0-9]+/i', '', $this->address1));
-		$this->address->number   = preg_replace('/[^0-9]/', '', $this->address1);
-		$this->address->district = $this->address2;
-        $this->address->city     = $this->city;
-        $this->address->state    = $this->state;
-		$this->address->postcode = preg_replace('/[^0-9]/', '', $this->postcode);
+        $address = new \stdClass();
+
+		$address->street   = str_replace(',', '', preg_replace('/[0-9]+/i', '', $this->address1));
+		$address->number   = preg_replace('/[^0-9]/', '', $this->address1);
+		$address->district = $this->address2;
+        $address->city     = $this->city;
+        $address->state    = $this->state;
+		$address->postcode = preg_replace('/[^0-9]/', '', $this->postcode);
+
+		$this->address = $address;
+		
 		return $this;
     }
 
