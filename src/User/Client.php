@@ -59,7 +59,7 @@ class Client extends \WHMCS\User\Client
                 if (strlen($cpf) == 11) {
                     $customFields->doc_type = 'CPF';
                     $customFields->document = $cpf;
-                    $customFields->name = $this->firstname . ' ' . $this->lastname;
+                    $customFields->name_in_doc = $this->firstname . ' ' . $this->lastname;
                 }
             }
             if (mb_strrpos(mb_strtoupper($field->fieldname), 'CNPJ') !== false) {
@@ -67,7 +67,7 @@ class Client extends \WHMCS\User\Client
                 if (strlen($cnpj) == 14) {
                     $customFields->doc_type = 'CNPJ';
                     $customFields->document = $cnpj;
-                    $customFields->name = $this->companyname;
+                    $customFields->name_in_doc = $this->companyname;
                 }
             }
             if (mb_strrpos(mb_strtoupper($field->fieldname), 'IM') !== false OR mb_strrpos(mb_strtoupper($field->fieldname), 'INSCRIÇÃO MUNICIPAL') !== false) {
